@@ -5,8 +5,15 @@ knitterer put clothes on, as one package so there is one of it. Plain ES
 modules with no dependencies, and the model's files come with it, so it runs in
 a browser, in Node, and inside either app's own renderer.
 
-Both apps consume this as a git submodule, so a change here is a change in both
-once the submodule is moved forward.
+Both apps consume this as a git submodule at `vendor/body-model`, pinned to the
+same commit, so a change here is a change in both once the submodule is moved
+forward. After a change lands on `main`, bump the pin in each consumer in the
+same sitting:
+
+```
+git -C vendor/body-model fetch && git -C vendor/body-model checkout origin/main
+git add vendor/body-model && git commit -m "Move the body model forward"
+```
 
 ```
 git submodule add https://github.com/ahzs645/body-model vendor/body-model
